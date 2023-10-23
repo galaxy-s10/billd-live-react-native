@@ -20,43 +20,66 @@ const User = () => {
       {list?.map((item) => {
         return (
           <Card key={item.id}>
-            <Text>{item.name}</Text>
-            {item.area_live_rooms.map((iten) => {
-              return (
-                <View
-                  key={iten.id}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    flexWrap: 'wrap',
-                  }}>
-                  {iten.live_room?.cover_img ? (
-                    <Image
-                      style={{
-                        width: 180,
-                        height: 180 * (9 / 16),
-                        borderRadius: 10,
-                      }}
-                      source={{
-                        uri: iten.live_room?.cover_img,
-                      }}></Image>
-                  ) : (
-                    <View
-                      style={{
-                        width: 120,
-                        height: 120 * (9 / 16),
-                        borderRadius: 10,
-                        backgroundColor: 'red',
-                        marginBottom: 10,
-                      }}></View>
-                  )}
-                </View>
-              );
-            })}
+            <View
+              style={{
+                paddingBottom: 10,
+                display: 'flex',
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                alignItems: 'baseline',
+              }}>
+              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+                {item.name}
+              </Text>
+              <Text>查看全部</Text>
+            </View>
+            <View
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                width: '100%',
+              }}>
+              {item.area_live_rooms.map((iten) => {
+                return (
+                  <View key={iten.id} style={{ marginBottom: 10 }}>
+                    {iten.live_room?.cover_img ? (
+                      <View>
+                        <Image
+                          style={{
+                            width: 160,
+                            height: 160 * (9 / 16),
+                            borderRadius: 10,
+                          }}
+                          source={{
+                            uri: iten.live_room.cover_img,
+                          }}></Image>
+                      </View>
+                    ) : (
+                      <View
+                        style={{
+                          width: 160,
+                          height: 160 * (9 / 16),
+                          borderRadius: 10,
+                          backgroundColor: 'red',
+                        }}></View>
+                    )}
+                    <Text
+                      style={{ paddingLeft: 2, width: 150 }}
+                      numberOfLines={1}
+                      ellipsizeMode="middle">
+                      {iten.live_room.name}
+                    </Text>
+                  </View>
+                );
+              })}
+              {!item.area_live_rooms.length && <Text>暂无数据</Text>}
+            </View>
           </Card>
         );
       })}
+      <View style={{ height: 20 }}></View>
     </ScrollView>
   );
 };
