@@ -11,18 +11,27 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.billdlivereactnative"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/tabbar/area.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.billdlivereactnative"
     },
     "web": {
       "favicon": "./assets/images/tabbar/area.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5d2f3860-421d-4d26-b4ea-5070956665e3"
+      }
     }
   }
 }
