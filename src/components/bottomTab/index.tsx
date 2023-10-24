@@ -15,9 +15,29 @@ import rankActivePng from '../../../assets/images/tabbar/rank_active.png';
 import userPng from '../../../assets/images/tabbar/user.png';
 import userActivePng from '../../../assets/images/tabbar/user_active.png';
 
+import { StyleSheet } from 'react-native';
 import { themeColor } from '../../constant';
 
 const Tab = createBottomTabNavigator();
+
+const styles = StyleSheet.create({
+  img: {
+    width: 20,
+    height: 20,
+  },
+});
+
+const tabBarIcon = ({ focused, icon, focusedIcon }) =>
+  focused ? (
+    <Image style={styles.img} source={focusedIcon}></Image>
+  ) : (
+    <Image style={styles.img} source={icon}></Image>
+  );
+
+const screenOptions = {
+  tabBarActiveTintColor: themeColor,
+  tabBarStyle: { paddingBottom: 5 },
+};
 
 export function BottomTabCpt() {
   return (
@@ -26,64 +46,36 @@ export function BottomTabCpt() {
         name="首页"
         component={Home}
         options={{
-          tabBarActiveTintColor: themeColor,
-          tabBarStyle: { paddingBottom: 5 },
+          ...screenOptions,
           tabBarIcon: ({ focused }) =>
-            focused ? (
-              <Image
-                style={{ width: 20, height: 20 }}
-                source={homeActivePng}></Image>
-            ) : (
-              <Image style={{ width: 20, height: 20 }} source={homePng}></Image>
-            ),
+            tabBarIcon({ focused, icon: homePng, focusedIcon: homeActivePng }),
         }}
       />
       <Tab.Screen
         name="分区"
         component={Area}
         options={{
-          tabBarActiveTintColor: themeColor,
-          tabBarStyle: { paddingBottom: 5 },
+          ...screenOptions,
           tabBarIcon: ({ focused }) =>
-            focused ? (
-              <Image
-                style={{ width: 20, height: 20 }}
-                source={areaActivePng}></Image>
-            ) : (
-              <Image style={{ width: 20, height: 20 }} source={areaPng}></Image>
-            ),
+            tabBarIcon({ focused, icon: areaPng, focusedIcon: areaActivePng }),
         }}
       />
       <Tab.Screen
         name="排行"
         component={Rank}
         options={{
-          tabBarActiveTintColor: themeColor,
-          tabBarStyle: { paddingBottom: 5 },
+          ...screenOptions,
           tabBarIcon: ({ focused }) =>
-            focused ? (
-              <Image
-                style={{ width: 20, height: 20 }}
-                source={rankActivePng}></Image>
-            ) : (
-              <Image style={{ width: 20, height: 20 }} source={rankPng}></Image>
-            ),
+            tabBarIcon({ focused, icon: rankPng, focusedIcon: rankActivePng }),
         }}
       />
       <Tab.Screen
         name="我的"
         component={User}
         options={{
-          tabBarActiveTintColor: themeColor,
-          tabBarStyle: { paddingBottom: 5 },
+          ...screenOptions,
           tabBarIcon: ({ focused }) =>
-            focused ? (
-              <Image
-                style={{ width: 20, height: 20 }}
-                source={userActivePng}></Image>
-            ) : (
-              <Image style={{ width: 20, height: 20 }} source={userPng}></Image>
-            ),
+            tabBarIcon({ focused, icon: userPng, focusedIcon: userActivePng }),
         }}
       />
     </Tab.Navigator>

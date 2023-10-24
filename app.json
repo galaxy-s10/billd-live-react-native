@@ -4,29 +4,20 @@
     "slug": "billd-live-react-native",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/tabbar/area.png",
+    "icon": "./assets/app/billd-live-logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images/tabbar/area.png",
+      "image": "./assets/images/tabbar/rank.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.billdlivereactnative"
-    },
+    "assetBundlePatterns": ["**/*"],
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/tabbar/area.png",
+        "foregroundImage": "./assets/images/tabbar/home.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.anonymous.billdlivereactnative"
-    },
-    "web": {
-      "favicon": "./assets/images/tabbar/area.png"
     },
     "extra": {
       "eas": {

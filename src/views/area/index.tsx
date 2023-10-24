@@ -44,27 +44,19 @@ const User = () => {
               {item.area_live_rooms.map((iten) => {
                 return (
                   <View key={iten.id} style={{ marginBottom: 10 }}>
-                    {iten.live_room?.cover_img ? (
-                      <View>
-                        <Image
-                          style={{
-                            width: 160,
-                            height: 160 * (9 / 16),
-                            borderRadius: 10,
-                          }}
-                          source={{
-                            uri: iten.live_room.cover_img,
-                          }}></Image>
-                      </View>
-                    ) : (
-                      <View
+                    <View>
+                      <Image
                         style={{
                           width: 160,
                           height: 160 * (9 / 16),
                           borderRadius: 10,
-                          backgroundColor: 'red',
-                        }}></View>
-                    )}
+                        }}
+                        source={{
+                          uri:
+                            iten.live_room?.cover_img ||
+                            iten.live_room?.users?.[0]?.avatar,
+                        }}></Image>
+                    </View>
                     <Text
                       style={{ paddingLeft: 2, width: 150 }}
                       numberOfLines={1}
