@@ -7,7 +7,7 @@
     "icon": "./assets/app/billd-live-logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images/tabbar/rank.png",
+      "image": "./assets/app/billd-live-logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
