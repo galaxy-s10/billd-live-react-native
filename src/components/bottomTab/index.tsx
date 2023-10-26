@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image } from 'react-native';
 
 import Area from '../../views/area';
+import AreaList from '../../views/areaList';
 import Home from '../../views/home';
 import Rank from '../../views/rank';
 import User from '../../views/user';
@@ -39,14 +40,27 @@ const screenOptions = {
   tabBarStyle: { paddingBottom: 5 },
 };
 
+function getHeaderTitle(navigation) {
+  let res = navigation.name;
+  if (navigation.route && navigation.route.params) {
+    const { name } = navigation.route.params;
+    res = name;
+  }
+  return res + '分区';
+}
+
 export function BottomTabCpt() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        ...screenOptions,
+      }}
+      // tabBar={() => null}
+      initialRouteName="首页">
       <Tab.Screen
         name="首页"
         component={Home}
         options={{
-          ...screenOptions,
           tabBarIcon: ({ focused }) =>
             tabBarIcon({ focused, icon: homePng, focusedIcon: homeActivePng }),
         }}
@@ -55,25 +69,33 @@ export function BottomTabCpt() {
         name="分区"
         component={Area}
         options={{
-          ...screenOptions,
           tabBarIcon: ({ focused }) =>
             tabBarIcon({ focused, icon: areaPng, focusedIcon: areaActivePng }),
         }}
       />
       <Tab.Screen
+        name="AreaList"
+        component={AreaList}
+        options={(navigation) => ({
+          tabBarStyle: { display: 'none' },
+          tabBarIconStyle: { display: 'none' },
+          tabBarItemStyle: { display: 'none' },
+          headerTitle: getHeaderTitle(navigation),
+        })}
+      />
+      <Tab.Screen
         name="排行"
         component={Rank}
         options={{
-          ...screenOptions,
           tabBarIcon: ({ focused }) =>
             tabBarIcon({ focused, icon: rankPng, focusedIcon: rankActivePng }),
         }}
       />
+
       <Tab.Screen
         name="我的"
         component={User}
         options={{
-          ...screenOptions,
           tabBarIcon: ({ focused }) =>
             tabBarIcon({ focused, icon: userPng, focusedIcon: userActivePng }),
         }}

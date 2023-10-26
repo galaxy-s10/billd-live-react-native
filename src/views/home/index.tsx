@@ -5,7 +5,6 @@ import { ImageBackground, View } from 'react-native';
 import { ResizeMode, Video } from 'expo-av';
 import { Dimensions, Text } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { fetchLiveList } from '../../api/live';
 import { ILive } from '../../interface';
 
@@ -21,9 +20,9 @@ const Home = () => {
   }
   const isFocused = useIsFocused();
 
-  const insets = useSafeAreaInsets();
   const width = Dimensions.get('window').width;
   const [heightRes, setHeightRes] = useState(1);
+
   useEffect(() => {
     getData();
   }, []);
@@ -33,24 +32,29 @@ const Home = () => {
       await avVideo.current.unloadAsync();
     }
   }
-
-  useEffect(() => {
-    if (!isFocused) {
-      delVideo();
-    }
-  }, [isFocused]);
-
-  async function handleOnSnapToItem(index) {
-    setCurrentIndex(index);
+  async function startVideo() {
     if (avVideo.current) {
       await avVideo.current.unloadAsync();
       await avVideo.current.loadAsync(
-        { uri: list[index].live_room.hls_url },
+        { uri: list[currentIndex].live_room.hls_url },
         {},
         false
       );
       await avVideo.current.playAsync();
     }
+  }
+
+  useEffect(() => {
+    if (!isFocused) {
+      delVideo();
+    } else {
+      startVideo();
+    }
+  }, [isFocused]);
+
+  async function handleOnSnapToItem(index) {
+    setCurrentIndex(index);
+    startVideo();
   }
   return (
     <View
@@ -133,8 +137,7 @@ const Home = () => {
                 color: 'white',
                 backgroundColor: 'rgba(0, 0, 0, 0.5)',
               }}>
-              {item.live_room.name}--
-              {isFocused ? 'focused' : 'unfocused'}
+              {item.live_room.name}
             </Text>
           </View>
         )}

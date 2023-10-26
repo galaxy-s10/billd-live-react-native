@@ -4,7 +4,7 @@ import { Image, ScrollView, Text, View } from 'react-native';
 import { fetchAreaAareLiveRoomList } from '../../api/area';
 import { IArea } from '../../interface';
 
-const User = () => {
+const User = ({ navigation }) => {
   const [list, setList] = useState<IArea[]>();
   async function getData() {
     let res = await fetchAreaAareLiveRoomList({});
@@ -31,7 +31,15 @@ const User = () => {
               <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
                 {item.name}
               </Text>
-              <Text>查看全部</Text>
+              <Text
+                onPress={() =>
+                  navigation.navigate('AreaList', {
+                    name: item.name,
+                    id: item.id,
+                  })
+                }>
+                查看全部
+              </Text>
             </View>
             <View
               style={{
