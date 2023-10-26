@@ -32,11 +32,11 @@ const Home = () => {
       await avVideo.current.unloadAsync();
     }
   }
-  async function startVideo() {
+  async function startVideo(index) {
     if (avVideo.current) {
       await avVideo.current.unloadAsync();
       await avVideo.current.loadAsync(
-        { uri: list[currentIndex].live_room.hls_url },
+        { uri: list[index].live_room.hls_url },
         {},
         false
       );
@@ -48,13 +48,12 @@ const Home = () => {
     if (!isFocused) {
       delVideo();
     } else {
-      startVideo();
+      startVideo(currentIndex);
     }
   }, [isFocused]);
 
   async function handleOnSnapToItem(index) {
     setCurrentIndex(index);
-    startVideo();
   }
   return (
     <View

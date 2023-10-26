@@ -16,7 +16,7 @@ import rankActivePng from '../../../assets/images/tabbar/rank_active.png';
 import userPng from '../../../assets/images/tabbar/user.png';
 import userActivePng from '../../../assets/images/tabbar/user_active.png';
 
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { themeColor } from '../../constant';
 
 const Tab = createBottomTabNavigator();
@@ -47,6 +47,19 @@ function getHeaderTitle(navigation) {
     res = name;
   }
   return res + '分区';
+}
+
+function LeftBtn() {
+  return (
+    <View
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        flex: 1,
+      }}>
+      <Text>返回</Text>
+    </View>
+  );
 }
 
 export function BottomTabCpt() {
@@ -81,6 +94,8 @@ export function BottomTabCpt() {
           tabBarIconStyle: { display: 'none' },
           tabBarItemStyle: { display: 'none' },
           headerTitle: getHeaderTitle(navigation),
+          headerTitleAlign: 'center',
+          headerLeft: (props) => <LeftBtn></LeftBtn>,
         })}
       />
       <Tab.Screen
