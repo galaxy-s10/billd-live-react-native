@@ -1,31 +1,36 @@
+import { useIsFocused } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
 import { fetchAreaLiveRoomList } from '../../api/area';
+import Loading from '../../components/Loading';
 import { ILiveRoom } from '../../interface';
 
 const AreaList = (navigation) => {
   const [list, setList] = useState<ILiveRoom[]>([]);
-  const [areaId, setAreaId] = useState(-1);
   const [loading, setLoading] = useState(false);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
+    if (!isFocused) {
+      setList([]);
+    }
+    getData();
+  }, [isFocused]);
+
+  async function getData() {
     if (navigation.route && navigation.route.params) {
       const { id } = navigation.route.params;
-      setAreaId(id);
-      getData(id);
+      setLoading(true);
+      let res = await fetchAreaLiveRoomList({
+        id: id,
+      });
+      setLoading(false);
+      setList(res.data.rows);
     }
-  }, []);
-  async function getData(id) {
-    console.log('iddd', id);
-    setLoading(true);
-    let res = await fetchAreaLiveRoomList({
-      id: id,
-    });
-    setLoading(false);
-
-    setList(res.data.rows);
   }
-  return (
+  return loading ? (
+    <Loading size="large"></Loading>
+  ) : (
     <ScrollView
       contentContainerStyle={{
         padding: 10,
@@ -52,7 +57,9 @@ const AreaList = (navigation) => {
             <Text
               style={{ paddingLeft: 2, width: 150 }}
               numberOfLines={1}
-              ellipsizeMode="middle"></Text>
+              ellipsizeMode="middle">
+              {iten.name}
+            </Text>
           </View>
         );
       })}
