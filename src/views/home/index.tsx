@@ -6,6 +6,8 @@ import { ResizeMode, Video } from 'expo-av';
 import { Dimensions, Text } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import { fetchLiveList } from '../../api/live';
+import Loading from '../../components/Loading';
+import { themeColor } from '../../constant';
 import { ILive } from '../../interface';
 
 const Home = () => {
@@ -14,8 +16,12 @@ const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
   const [list, setList] = useState<ILive[]>();
+  const [loading, setLoading] = useState(false);
+
   async function getData() {
+    setLoading(true);
     let res = await fetchLiveList({ orderBy: 'desc', orderName: 'created_at' });
+    setLoading(false);
     setList(res.data.rows);
   }
   const isFocused = useIsFocused();
@@ -76,7 +82,7 @@ const Home = () => {
         height={heightRes}
         autoPlay={false}
         data={list}
-        scrollAnimationDuration={1000}
+        scrollAnimationDuration={500}
         vertical
         onSnapToItem={(index) => handleOnSnapToItem(index)}
         renderItem={({ item, index }) => (
@@ -117,12 +123,8 @@ const Home = () => {
                   height: '100%',
                   alignItems: 'center',
                 }}>
-                <Text
-                  style={{
-                    fontSize: 30,
-                  }}>
-                  加载中...
-                </Text>
+                <Loading size="large"></Loading>
+                <Text style={{ color: themeColor }}>加载中...</Text>
               </View>
             )}
             <Text

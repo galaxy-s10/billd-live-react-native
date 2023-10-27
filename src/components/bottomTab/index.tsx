@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 
 import Area from '../../views/area';
 import AreaList from '../../views/areaList';
@@ -16,7 +16,10 @@ import rankActivePng from '../../../assets/images/tabbar/rank_active.png';
 import userPng from '../../../assets/images/tabbar/user.png';
 import userActivePng from '../../../assets/images/tabbar/user_active.png';
 
-import { StyleSheet, Text, View } from 'react-native';
+import leftPng from '../../../assets/images/left.png';
+
+import { useNavigation } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
 import { themeColor } from '../../constant';
 
 const Tab = createBottomTabNavigator();
@@ -50,15 +53,17 @@ function getHeaderTitle(navigation) {
 }
 
 function LeftBtn() {
+  const navigation = useNavigation();
   return (
-    <View
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        flex: 1,
-      }}>
-      <Text>返回</Text>
-    </View>
+    <TouchableOpacity onPress={() => navigation.navigate('Area')}>
+      <Image
+        style={{
+          marginLeft: 10,
+          width: 24,
+          height: 24,
+        }}
+        source={leftPng}></Image>
+    </TouchableOpacity>
   );
 }
 
@@ -67,21 +72,31 @@ export function BottomTabCpt() {
     <Tab.Navigator
       screenOptions={{
         ...screenOptions,
+        headerTitleStyle: {
+          fontSize: 18, // 设置标题的字体大小
+        },
       }}
       // tabBar={() => null}
       initialRouteName="首页">
       <Tab.Screen
-        name="首页"
+        name="Home"
         component={Home}
         options={{
+          headerStatusBarHeight: 20,
+          header: () => null,
+          headerTitle: '首页',
+          tabBarLabel: '首页',
           tabBarIcon: ({ focused }) =>
             tabBarIcon({ focused, icon: homePng, focusedIcon: homeActivePng }),
         }}
       />
       <Tab.Screen
-        name="分区"
+        name="Area"
         component={Area}
         options={{
+          headerShown: false, //是否显示标题。将其设置为false隐藏标头。
+          // headerTitle: '分区',
+          tabBarLabel: '分区',
           tabBarIcon: ({ focused }) =>
             tabBarIcon({ focused, icon: areaPng, focusedIcon: areaActivePng }),
         }}
@@ -99,18 +114,24 @@ export function BottomTabCpt() {
         })}
       />
       <Tab.Screen
-        name="排行"
+        name="Rank"
         component={Rank}
         options={{
+          headerShown: false,
+          headerTitle: '排行',
+          tabBarLabel: '排行',
           tabBarIcon: ({ focused }) =>
             tabBarIcon({ focused, icon: rankPng, focusedIcon: rankActivePng }),
         }}
       />
 
       <Tab.Screen
-        name="我的"
+        name="User"
         component={User}
         options={{
+          headerShown: false,
+          headerTitle: '我的',
+          tabBarLabel: '我的',
           tabBarIcon: ({ focused }) =>
             tabBarIcon({ focused, icon: userPng, focusedIcon: userActivePng }),
         }}

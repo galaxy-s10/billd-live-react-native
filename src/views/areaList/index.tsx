@@ -6,20 +6,23 @@ import { ILiveRoom } from '../../interface';
 const AreaList = (navigation) => {
   const [list, setList] = useState<ILiveRoom[]>([]);
   const [areaId, setAreaId] = useState(-1);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (navigation.route && navigation.route.params) {
       const { id } = navigation.route.params;
-      console.log(id, 'dddddd');
       setAreaId(id);
       getData(id);
     }
   }, []);
-
   async function getData(id) {
+    console.log('iddd', id);
+    setLoading(true);
     let res = await fetchAreaLiveRoomList({
       id: id,
     });
+    setLoading(false);
+
     setList(res.data.rows);
   }
   return (

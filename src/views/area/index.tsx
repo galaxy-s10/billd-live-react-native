@@ -1,13 +1,17 @@
 import { Card } from '@rneui/themed';
 import { useEffect, useState } from 'react';
-import { Image, ScrollView, Text, View } from 'react-native';
+import { Image, ScrollView, StatusBar, Text, View } from 'react-native';
 import { fetchAreaAareLiveRoomList } from '../../api/area';
+import Loading from '../../components/Loading';
 import { IArea } from '../../interface';
-
-const User = ({ navigation }) => {
+const Area = ({ navigation }) => {
   const [list, setList] = useState<IArea[]>();
+  const [loading, setLoading] = useState(false);
+
   async function getData() {
+    setLoading(true);
     let res = await fetchAreaAareLiveRoomList({});
+    setLoading(false);
     setList(res.data.rows);
   }
 
@@ -15,11 +19,35 @@ const User = ({ navigation }) => {
     getData();
   }, []);
 
-  return (
-    <ScrollView>
+  return loading ? (
+    <View
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      <View>
+        <Loading size="large"></Loading>
+        <Text>加载中...</Text>
+      </View>
+    </View>
+  ) : (
+    <ScrollView
+      style={{
+        paddingTop: StatusBar.currentHeight,
+        position: 'relative',
+        // flex: 1,
+        // backgroundColor: 'red',
+      }}>
       {list?.map((item) => {
         return (
-          <Card key={item.id}>
+          <Card
+            key={item.id}
+            containerStyle={{ marginTop: 0, marginBottom: 15 }}>
             <View
               style={{
                 paddingBottom: 10,
@@ -79,9 +107,8 @@ const User = ({ navigation }) => {
           </Card>
         );
       })}
-      <View style={{ height: 20 }}></View>
     </ScrollView>
   );
 };
 
-export default User;
+export default Area;

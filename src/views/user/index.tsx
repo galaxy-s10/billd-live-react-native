@@ -1,10 +1,11 @@
-import { useState } from 'react';
-import { Text } from 'react-native';
-import { ILink } from '../../interface';
+import { ScrollView, StatusBar, Text } from 'react-native';
 
 const User = () => {
-  const [list, setList] = useState<ILink[]>();
-  return <Text>User</Text>;
+  return (
+    <ScrollView style={{ paddingTop: StatusBar.currentHeight }}>
+      <Text>User</Text>
+    </ScrollView>
+  );
 };
 
 export default User;
