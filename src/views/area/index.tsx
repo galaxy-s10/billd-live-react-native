@@ -107,6 +107,7 @@ const Area = ({ navigation }) => {
           </Card>
         );
       })}
+      <View style={{ paddingBottom: 20 }}></View>
     </ScrollView>
   );
 };

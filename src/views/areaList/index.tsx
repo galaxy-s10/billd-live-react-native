@@ -63,6 +63,7 @@ const AreaList = (navigation) => {
           </View>
         );
       })}
+      {!list.length && <Text>暂无数据</Text>}
     </ScrollView>
   );
 };

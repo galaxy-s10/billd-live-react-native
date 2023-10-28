@@ -23,6 +23,15 @@
       "eas": {
         "projectId": "5d2f3860-421d-4d26-b4ea-5070956665e3"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+        }
+      ],
+      "@config-plugins/react-native-webrtc"
+    ]
   }
 }

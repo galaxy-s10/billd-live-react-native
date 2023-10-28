@@ -77,7 +77,7 @@ export function BottomTabCpt() {
         },
       }}
       // tabBar={() => null}
-      initialRouteName="首页">
+      initialRouteName="User">
       <Tab.Screen
         name="Home"
         component={Home}
