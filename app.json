@@ -11,13 +11,25 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/tabbar/home.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.billdlivereactnative"
+      "package": "com.anonymous.billdlivereactnative",
+      "permissions": [
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.BLUETOOTH",
+        "android.permission.CAMERA",
+        "android.permission.INTERNET",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.WAKE_LOCK"
+      ]
     },
     "extra": {
       "eas": {
@@ -26,12 +38,16 @@
     },
     "plugins": [
       [
-        "expo-camera",
+        "@config-plugins/react-native-webrtc",
         {
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone"
         }
-      ],
-      "@config-plugins/react-native-webrtc"
-    ]
+      ]
+    ],
+    "ios": {
+      "bitcode": false,
+      "bundleIdentifier": "y"
+    }
   }
 }

@@ -3,7 +3,7 @@ import { Button } from '@rneui/base';
 import { Camera, CameraType } from 'expo-camera';
 import { useEffect, useState } from 'react';
 import { Dimensions, StatusBar, Text, View } from 'react-native';
-import { RTCPeerConnection } from 'react-native-webrtc';
+// import { RTCPeerConnection } from 'react-native-webrtc';
 
 const User = () => {
   const [errMsg, setErrMsg] = useState('');
@@ -21,7 +21,7 @@ const User = () => {
   useEffect(() => {
     const h = width / (3 / 4);
     setHeightRes(h);
-    console.log(RTCPeerConnection);
+    // console.log(RTCPeerConnection, 33);
   }, []);
 
   async function startLive() {

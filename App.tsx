@@ -1,12 +1,20 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
-import { BottomTabCpt } from './src/components/bottomTab/index';
+import { Text, View } from 'react-native';
+import { RTCPeerConnection } from 'react-native-webrtc';
+import { BottomTabCpt } from './src/components/bottomTab';
 
 export default function App() {
+  console.log(RTCPeerConnection, 'RTCPeerConnection');
   return (
-    <NavigationContainer>
-      <StatusBar style="auto" />
+    <View>
+      <Text>2311</Text>
+      {/* <StatusBar style="auto" /> */}
       <BottomTabCpt></BottomTabCpt>
-    </NavigationContainer>
+    </View>
   );
+  // return (
+  //   <NavigationContainer>
+  //     {/* <StatusBar style="auto" /> */}
+  //     <BottomTabCpt></BottomTabCpt>
+  //   </NavigationContainer>
+  // );
 }
